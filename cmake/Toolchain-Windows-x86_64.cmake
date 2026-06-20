@@ -23,3 +23,7 @@ set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -static -static-libgcc -st
 # Windows-specific
 add_definitions(-D_WIN32 -DWIN32 -D_WINDOWS)
 add_definitions(-DDARKAGES_BUILD)
+
+# MinGW compatibility flags
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fpermissive -Wno-unknown-pragmas -Wno-narrowing -Wno-sign-compare -Wno-write-strings -Wno-unused-variable -Wno-unused-but-set-variable -Wno-multichar")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno-unknown-pragmas -Wno-sign-compare -Wno-unused-variable")
