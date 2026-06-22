@@ -42,78 +42,109 @@ set(BASE_DIR ${CMAKE_SOURCE_DIR}/darkages)
 
 # idLib sources
 file(GLOB_RECURSE IDLIB_SOURCES
+    ${CMAKE_SOURCE_DIR}/stubs
     ${NEO_DIR}/idlib/*.cpp
+    ${CMAKE_SOURCE_DIR}/stubs
     ${NEO_DIR}/idlib/*.h
 )
 
 # Renderer sources
 file(GLOB RENDERER_SOURCES
+    ${CMAKE_SOURCE_DIR}/stubs
     ${NEO_DIR}/renderer/*.cpp
+    ${CMAKE_SOURCE_DIR}/stubs
     ${NEO_DIR}/renderer/*.h
 )
 
 # Framework sources
 file(GLOB FRAMEWORK_SOURCES
+    ${CMAKE_SOURCE_DIR}/stubs
     ${NEO_DIR}/framework/*.cpp
+    ${CMAKE_SOURCE_DIR}/stubs
     ${NEO_DIR}/framework/*.h
 )
 
 # Sound sources
 file(GLOB SOUND_SOURCES
+    ${CMAKE_SOURCE_DIR}/stubs
     ${NEO_DIR}/sound/*.cpp
+    ${CMAKE_SOURCE_DIR}/stubs
     ${NEO_DIR}/sound/*.h
+    ${CMAKE_SOURCE_DIR}/stubs
+    ${NEO_DIR}/sound/XAudio2/*.cpp
+    ${CMAKE_SOURCE_DIR}/stubs
+    ${NEO_DIR}/sound/XAudio2/*.h
 )
 
 # AAS sources
 file(GLOB AAS_SOURCES
+    ${CMAKE_SOURCE_DIR}/stubs
     ${NEO_DIR}/aas/*.cpp
+    ${CMAKE_SOURCE_DIR}/stubs
     ${NEO_DIR}/aas/*.h
 )
 
 # Collision Model sources
 file(GLOB CM_SOURCES
+    ${CMAKE_SOURCE_DIR}/stubs
     ${NEO_DIR}/cm/*.cpp
+    ${CMAKE_SOURCE_DIR}/stubs
     ${NEO_DIR}/cm/*.h
 )
 
 # UI sources
 file(GLOB UI_SOURCES
+    ${CMAKE_SOURCE_DIR}/stubs
     ${NEO_DIR}/ui/*.cpp
+    ${CMAKE_SOURCE_DIR}/stubs
     ${NEO_DIR}/ui/*.h
 )
 
 # SWF sources
 file(GLOB SWF_SOURCES
+    ${CMAKE_SOURCE_DIR}/stubs
     ${NEO_DIR}/swf/*.cpp
+    ${CMAKE_SOURCE_DIR}/stubs
     ${NEO_DIR}/swf/*.h
 )
 
 # Game sources (d3xp)
 file(GLOB_RECURSE GAME_SOURCES
+    ${CMAKE_SOURCE_DIR}/stubs
     ${NEO_DIR}/d3xp/*.cpp
+    ${CMAKE_SOURCE_DIR}/stubs
     ${NEO_DIR}/d3xp/*.h
 )
 
 # Dark Ages specific sources
 file(GLOB_RECURSE DARKAGES_SOURCES
+    ${CMAKE_SOURCE_DIR}/stubs
     ${NEO_DIR}/darkages/*.cpp
+    ${CMAKE_SOURCE_DIR}/stubs
     ${NEO_DIR}/darkages/*.h
 )
 
 # System sources
 if(WIN32)
     file(GLOB SYS_SOURCES
-        ${NEO_DIR}/sys/*.cpp
-        ${NEO_DIR}/sys/*.h
-        ${NEO_DIR}/sys/win32/*.cpp
-        ${NEO_DIR}/sys/win32/*.h
+        ${CMAKE_SOURCE_DIR}/stubs
+    ${NEO_DIR}/sys/*.cpp
+        ${CMAKE_SOURCE_DIR}/stubs
+    ${NEO_DIR}/sys/*.h
+        ${CMAKE_SOURCE_DIR}/stubs
+    ${NEO_DIR}/sys/win32/*.cpp
+        ${CMAKE_SOURCE_DIR}/stubs
+    ${NEO_DIR}/sys/win32/*.h
     )
     # Windows resource file with icon
-    set(WIN_RC_FILE ${NEO_DIR}/sys/win32/darkages.rc)
+    set(WIN_RC_FILE ${CMAKE_SOURCE_DIR}/stubs
+    ${NEO_DIR}/sys/win32/darkages.rc)
 else()
     file(GLOB SYS_SOURCES
-        ${NEO_DIR}/sys/*.cpp
-        ${NEO_DIR}/sys/*.h
+        ${CMAKE_SOURCE_DIR}/stubs
+    ${NEO_DIR}/sys/*.cpp
+        ${CMAKE_SOURCE_DIR}/stubs
+    ${NEO_DIR}/sys/*.h
     )
     set(WIN_RC_FILE "")
 endif()
@@ -135,10 +166,26 @@ set(ALL_SOURCES
 
 # Include directories
 include_directories(
+    ${CMAKE_SOURCE_DIR}/stubs
     ${NEO_DIR}
+    ${CMAKE_SOURCE_DIR}/stubs
     ${NEO_DIR}/idlib
+    ${CMAKE_SOURCE_DIR}/stubs
     ${NEO_DIR}/d3xp
+    ${CMAKE_SOURCE_DIR}/stubs
+    ${NEO_DIR}/d3xp/menus
+    ${CMAKE_SOURCE_DIR}/stubs
     ${NEO_DIR}/darkages
+    ${CMAKE_SOURCE_DIR}/stubs
+    ${NEO_DIR}/framework
+    ${CMAKE_SOURCE_DIR}/stubs
+    ${NEO_DIR}/renderer
+    ${CMAKE_SOURCE_DIR}/stubs
+    ${NEO_DIR}/renderer/color
+    ${CMAKE_SOURCE_DIR}/stubs
+    ${NEO_DIR}/renderer/dxt
+    ${CMAKE_SOURCE_DIR}/stubs
+    ${NEO_DIR}/sound/XAudio2
 )
 
 # Definitions

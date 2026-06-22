@@ -7,6 +7,7 @@ DOOM: The Dark Ages - Renderer Implementation
 */
 
 #include "DarkAgesRenderer.h"
+#include "DarkAgesGame.h"
 #include <cstring>
 #include <cmath>
 
