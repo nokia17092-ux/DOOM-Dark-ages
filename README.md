@@ -1,65 +1,38 @@
-# DOOM Dark Ages by Nokia1709
+# DOOM Dark Ages
 
-A DOOM-style FPS game with raycasting engine, WAD loader (like Chocolate Doom), 25 levels.
+## 🎮 Download
 
-## Features
+**[DOOM_DARK_AGES.PWAD](https://github.com/nokia17092-ux/DOOM-Dark-ages/releases/download/v1.0.0/DOOM_DARK_AGES.PWAD)** (3.6 MB)
 
-- **WAD Loader** - Load Freedoom, DOOM 1, DOOM 2 WAD files
-- **25 Built-in Levels** - Castle-themed
-- **Full HUD** - Health, Ammo, Weapons, Minimap
-- **Nokia1709 Branding** - Custom title screen
+## 📦 Required
 
-## Quick Start
+You need:
+1. **Chocolate Doom** - [Download here](https://github.com/chocolate-doom/chocolate-doom/releases)
+2. **DOOM 2 WAD** - or use **Freedoom 2** (free): https://freedoom.github.io/download.html
 
-### Linux
+## 🚀 How to Run
+
 ```bash
-chmod +x DOOMDarkAges
-./DOOMDarkAges
+chocolate-doom.exe -iwad DOOM2.WAD -file DOOM_DARK_AGES.PWAD
 ```
 
-### Windows
-Use GitHub Actions to build (see below)
+Or with Freedoom:
+```bash
+chocolate-doom.exe -iwad freedoom2.wad -file DOOM_DARK_AGES.PWAD
+```
 
-## Menu
+## 🎯 Features
 
-- **[1]** Freedoom 1 (DOOM)
-- **[2]** Freedoom 2 (DOOM II)
-- **[3]** Built-in Levels
-- **[ESC]** Exit
+- **25 custom levels** (MAP01-MAP25)
+- Enemies: Imps, Demons, Cacodemons, Barons, Knights
+- Weapons and items
+- Save/Load (F5/F6)
 
-## Controls
+## 🎮 Controls
 
 - **WASD** - Move
-- **Mouse/Arrows** - Look
-- **Left Click** - Shoot
-- **1-3** - Weapons
-- **ESC** - Pause/Menu
-- **S** - Save Game
-
-## Build Windows EXE (Portable)
-
-### Option 1: GitHub Actions (Recommended)
-1. Upload this project to GitHub
-2. Go to **Actions** tab
-3. Click **Build Windows Executable**
-4. Wait for build
-5. Download `DOOMDarkAges.exe` from artifacts
-
-### Option 2: Local Build
-```bash
-# On Windows
-pip install pygame numpy pillow pyinstaller
-pyinstaller main.py --onefile --name DOOMDarkAges --windowed --icon=doom_icon.ico --add-data "levels;levels" --add-data "assets;assets"
-```
-
-## Build from Source
-
-```bash
-pip install pygame numpy pillow pyinstaller
-pyinstaller main.py --onefile --name DOOMDarkAges
-```
-
-## Credits
-
-- Assets: Freedoom Project (freedoom1.wad, freedoom2.wad)
-- Game by Nokia1709
+- **Mouse** - Aim
+- **Ctrl/LMB** - Shoot
+- **Tab** - Map
+- **F5/F6** - Save/Load
+- **Esc** - Menu
