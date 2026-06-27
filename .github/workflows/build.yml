@@ -16,8 +16,8 @@ jobs:
           requirements.txt
           levels/
           doom_icon.ico
-          .github/
         sparse-checkout-cone-mode: false
+        fetch-depth: 1
     
     - name: Set up Python
       uses: actions/setup-python@v5
