@@ -1,0 +1,31 @@
+name: Build Windows Executable
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    
+    - name: Install dependencies
+      run: |
+        pip install pygame numpy pillow pyinstaller
+    
+    - name: Build portable exe
+      run: |
+        pyinstaller main.py --onefile --name DOOMDarkAges --windowed --icon=doom_icon.ico --add-data "levels;levels" --add-data "assets;assets"
+    
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: DOOMDarkAges-Windows-Portable
+        path: dist/DOOMDarkAges.exe
