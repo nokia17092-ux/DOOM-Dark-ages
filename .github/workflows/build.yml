@@ -11,13 +11,13 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
       with:
-        sparse-checkout: |
-          main.py
-          requirements.txt
-          levels/
-          doom_icon.ico
-        sparse-checkout-cone-mode: false
+        filter: blob:none
         fetch-depth: 1
+    
+    - name: Clean assets
+      run: |
+        Remove-Item -Recurse -Force assets -ErrorAction SilentlyContinue
+        Remove-Item -Recurse -Force game.spec -ErrorAction SilentlyContinue
     
     - name: Set up Python
       uses: actions/setup-python@v5
