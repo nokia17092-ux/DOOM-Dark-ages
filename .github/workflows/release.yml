@@ -1,0 +1,39 @@
+name: Release
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Download Chocolate Doom
+      run: |
+        curl -L "https://github.com/chocolate-doom/chocolate-doom/releases/download/chocolate-doom-3.0.1/chocolate-doom-3.0.1-win32.zip" -o chocolate-doom.zip
+        unzip -o chocolate-doom.zip
+    
+    - name: Download Freedoom
+      run: |
+        curl -L "https://github.com/freedoom/freedoom/releases/download/v0.12.1/freedoom-0.12.1.zip" -o freedoom.zip
+        unzip -o freedoom.zip
+    
+    - name: Prepare Release
+      run: |
+        mkdir -p DOOM-Dark-Ages
+        cp chocolate-doom/*.exe chocolate-doom/*.dll DOOM-Dark-Ages/ 2>/dev/null || true
+        cp freedoom-0.12.1/*.wad DOOM-Dark-Ages/
+        echo @echo off > DOOM-Dark-Ages/START.bat
+        echo chocolate-doom.exe -IWAD freedoom2.wad -skill 4 %%* >> DOOM-Dark-Ages/START.bat
+        cd DOOM-Dark-Ages && zip -r ../DOOM-Dark-Ages-Win32.zip .
+    
+    - name: Upload Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: DOOM-Dark-Ages-Win32.zip
+        generate_release_notes: true
