@@ -10,11 +10,19 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v4
+      with:
+        sparse-checkout: |
+          main.py
+          requirements.txt
+          levels/
+          doom_icon.ico
+          .github/
+        sparse-checkout-cone-mode: false
     
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
-        python-version: '3.11'
+        python-version: "3.11"
     
     - name: Install dependencies
       run: |
@@ -22,7 +30,7 @@ jobs:
     
     - name: Build portable exe
       run: |
-        pyinstaller main.py --onefile --name DOOMDarkAges --windowed --icon=doom_icon.ico --add-data "levels;levels" --add-data "assets;assets"
+        pyinstaller main.py --onefile --name DOOMDarkAges --windowed --icon=doom_icon.ico --add-data "levels;levels"
     
     - name: Upload artifact
       uses: actions/upload-artifact@v4
