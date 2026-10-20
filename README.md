@@ -1,20 +1,15 @@
 # DOOM Dark Ages
 
-A C++17 first-person game built with SDL2. Its software 3D renderer projects textured world geometry with perspective-correct texture mapping and a per-pixel depth buffer. It loads the repository's 25 JSON maps and indexed Doom-style flat textures.
+A small C++ launcher for the full 3D vkQuake engine and the free LibreQuake campaign. The portable Windows build includes animated 3D monsters, maps, weapons, sound effects, music, and the required runtime libraries.
 
 ## Play
 
-- Arrow keys: choose a level in the menu
-- Enter: start or resume
-- WASD: move
-- Mouse: look around
-- Left mouse button: shoot
-- Escape: pause, return to the menu, or quit
-- R: restart after defeat
+- Choose **PLAY CAMPAIGN** in the launcher to start the first LibreQuake campaign level.
+- In game: WASD/mouse, fire with the mouse, Escape opens the game menu.
 
 ## Build on Linux
 
-Requirements: CMake 3.20+, a C++17 compiler, and network access on the first configure (SDL2 and nlohmann/json are fetched at pinned versions).
+Requirements: CMake 3.20+, a C++17 compiler, and network access on the first configure (SDL2 is fetched at a pinned version).
 
 ```sh
 cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
@@ -22,14 +17,12 @@ cmake --build build --parallel
 ./build/DOOMDarkAges
 ```
 
-CMake copies the maps and game assets beside the executable.
+To play on Linux, place a compatible vkQuake binary and its runtime libraries beside the launcher. The Windows portable package is built by GitHub Actions.
 
 ## Windows x64 build
 
-Push to `main`, or start the **Build C++ Game** workflow manually in GitHub Actions. It builds on a Windows x64 runner and publishes `DOOMDarkAges-Windows-x64.zip` with the executable, SDL2 runtime, maps, and assets. This avoids requiring a Windows cross-compiler in the Linux development container.
-
-The workflow runs `DOOMDarkAges.exe --render-smoke` before packaging to verify the 3D framebuffer, depth buffer, and loaded maps.
+Push to `main`, or start the **Build C++ Game** workflow manually in GitHub Actions. It builds the C++ launcher on a Windows x64 runner, bundles vkQuake 1.37.0 and LibreQuake Lite v0.09-beta, verifies the portable install, and publishes `DOOMDarkAges-Windows-x64.zip`.
 
 ## LibreQuake status
 
-LibreQuake is not currently supported by this game. Its Quake PAK/BSP data and QuakeC game logic need a compatible Quake engine; this C++ raycaster currently reads the project's JSON maps and extracted Doom-style textures. The current build is a playable C++ foundation, not a LibreQuake port.
+LibreQuake assets are in `assets/librequake/librequake-lite-v0.09-beta.zip`. The engine is vkQuake (GPL-2.0); LibreQuake assets have the licenses noted in `id1/docs/COPYING`, `id1/docs/CREDITS`, and `id1/docs/README-IMPORTANT-LICENCE-INFO`. The portable package also contains source archives for vkQuake and LibreQuake, plus the vkQuake license. Original commercial DOOM: The Dark Ages assets are not included.

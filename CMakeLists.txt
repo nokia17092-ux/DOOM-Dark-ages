@@ -14,15 +14,10 @@ FetchContent_Declare(SDL2
     GIT_TAG release-2.30.11
     GIT_SHALLOW TRUE
 )
-FetchContent_Declare(nlohmann_json
-    GIT_REPOSITORY https://github.com/nlohmann/json.git
-    GIT_TAG v3.11.3
-    GIT_SHALLOW TRUE
-)
-FetchContent_MakeAvailable(SDL2 nlohmann_json)
+FetchContent_MakeAvailable(SDL2)
 
-add_executable(DOOMDarkAges src/game.cpp)
-target_link_libraries(DOOMDarkAges PRIVATE SDL2::SDL2 nlohmann_json::nlohmann_json)
+add_executable(DOOMDarkAges src/launcher.cpp)
+target_link_libraries(DOOMDarkAges PRIVATE SDL2::SDL2)
 if(WIN32)
     target_link_libraries(DOOMDarkAges PRIVATE SDL2::SDL2main)
 endif()
@@ -32,13 +27,6 @@ if(MSVC)
 else()
     target_compile_options(DOOMDarkAges PRIVATE -Wall -Wextra -Wpedantic)
 endif()
-
-add_custom_command(TARGET DOOMDarkAges POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_directory
-        "${CMAKE_SOURCE_DIR}/levels" "$<TARGET_FILE_DIR:DOOMDarkAges>/levels"
-    COMMAND ${CMAKE_COMMAND} -E copy_directory
-        "${CMAKE_SOURCE_DIR}/assets/extracted" "$<TARGET_FILE_DIR:DOOMDarkAges>/assets/extracted"
-)
 
 if(WIN32)
     add_custom_command(TARGET DOOMDarkAges POST_BUILD
