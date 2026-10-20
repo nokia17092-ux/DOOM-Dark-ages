@@ -6,32 +6,48 @@ on:
     branches: [main]
 
 jobs:
-  build-windows:
-    runs-on: windows-latest
+  prepare-source:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Stage Windows-compatible source tree
+        run: |
+          mkdir -p staging/src staging/assets/extracted
+          cp CMakeLists.txt staging/
+          cp src/game.cpp staging/src/
+          cp -r levels staging/levels
+          cp -r assets/extracted/flats staging/assets/extracted/flats
+          mkdir -p staging/assets/extracted/sprites
+          cp assets/extracted/sprites/PLAYPAL.lmp staging/assets/extracted/sprites/
+      - uses: actions/upload-artifact@v4
         with:
-          sparse-checkout: |
-            /levels/
-            /assets/extracted/flats/
-            /assets/extracted/sprites/PLAYPAL.lmp
-          sparse-checkout-cone-mode: false
+          name: cxx-game-source
+          path: staging/
+
+  build-windows:
+    runs-on: windows-latest
+    needs: prepare-source
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: cxx-game-source
+          path: source
       - name: Configure
-        run: cmake -S . -B build -A x64 -DCMAKE_BUILD_TYPE=Release
+        run: cmake -S source -B source/build -A x64 -DCMAKE_BUILD_TYPE=Release
       - name: Build
-        run: cmake --build build --config Release --parallel
+        run: cmake --build source/build --config Release --parallel
       - name: Verify 3D renderer
-        run: build/Release/DOOMDarkAges.exe --render-smoke
+        run: source/build/Release/DOOMDarkAges.exe --render-smoke
       - name: Package portable game
         shell: pwsh
         run: |
           New-Item -ItemType Directory -Force package | Out-Null
-          Copy-Item build/Release/DOOMDarkAges.exe package/
-          $sdlRuntime = Get-ChildItem build -Filter SDL2.dll -Recurse | Select-Object -First 1
+          Copy-Item source/build/Release/DOOMDarkAges.exe package/
+          $sdlRuntime = Get-ChildItem source/build -Filter SDL2.dll -Recurse | Select-Object -First 1
           if (-not $sdlRuntime) { throw 'SDL2.dll was not produced by the build' }
           Copy-Item $sdlRuntime.FullName package/SDL2.dll
-          Copy-Item build/Release/levels package/levels -Recurse
-          Copy-Item build/Release/assets package/assets -Recurse
+          Copy-Item source/build/Release/levels package/levels -Recurse
+          Copy-Item source/build/Release/assets package/assets -Recurse
           Compress-Archive -Path package/* -DestinationPath DOOMDarkAges-Windows-x64.zip
       - uses: actions/upload-artifact@v4
         with:
