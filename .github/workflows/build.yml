@@ -10,6 +10,12 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            /levels/
+            /assets/extracted/flats/
+            /assets/extracted/sprites/PLAYPAL.lmp
+          sparse-checkout-cone-mode: false
       - name: Configure
         run: cmake -S . -B build -A x64 -DCMAKE_BUILD_TYPE=Release
       - name: Build
