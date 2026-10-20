@@ -25,4 +25,4 @@ Push to `main`, or start the **Build C++ Game** workflow manually in GitHub Acti
 
 ## LibreQuake status
 
-LibreQuake assets are in `assets/librequake/librequake-lite-v0.09-beta.zip`. The engine is vkQuake (GPL-2.0); LibreQuake assets have the licenses noted in `id1/docs/COPYING`, `id1/docs/CREDITS`, and `id1/docs/README-IMPORTANT-LICENCE-INFO`. The portable package also contains source archives for vkQuake and LibreQuake, plus the vkQuake license. Original commercial DOOM: The Dark Ages assets are not included.
+LibreQuake assets are in `assets/librequake/librequake-lite-v0.09-beta.zip`. The engine is vkQuake (GPL-2.0); LibreQuake assets have the licenses noted in `id1/docs/COPYING`, `id1/docs/CREDITS`, and `id1/docs/README-IMPORTANT-LICENCE-INFO`. Pinned source links are in `assets/librequake/THIRD-PARTY-SOURCES.txt`. Original commercial DOOM: The Dark Ages assets are not included.

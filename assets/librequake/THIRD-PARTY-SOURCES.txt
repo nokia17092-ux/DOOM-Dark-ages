@@ -1,0 +1,20 @@
+Third-party source and license references
+
+vkQuake 1.37.0
+Windows runtime release:
+https://github.com/Novum/vkQuake/releases/tag/1.37.0
+Corresponding source, pinned tag:
+https://github.com/Novum/vkQuake/tree/1.37.0
+License: GPL-2.0-or-later. The runtime package includes LICENSE.txt.
+
+LibreQuake v0.09-beta
+Game data release:
+https://github.com/lavenderdotpet/LibreQuake/releases/tag/v0.09-beta
+Corresponding source, pinned tag:
+https://github.com/lavenderdotpet/LibreQuake/tree/v0.09-beta
+Data licenses and contributor credits are included in id1/docs/COPYING,
+id1/docs/README-IMPORTANT-LICENCE-INFO, and id1/docs/CREDITS.
+
+The game package contains the complete runtime data required to play. These
+links replace redundant source archives in the portable ZIP; they do not omit
+maps, models, textures, sounds, music, engine DLLs, or game runtime files.

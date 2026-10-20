@@ -16,6 +16,7 @@ jobs:
           cp CMakeLists.txt staging/
           cp src/launcher.cpp staging/src/
           cp assets/librequake/librequake-lite-v0.09-beta.zip staging/assets/librequake/
+          cp assets/librequake/THIRD-PARTY-SOURCES.txt staging/assets/librequake/
       - uses: actions/upload-artifact@v4
         with:
           name: cxx-game-source
@@ -42,12 +43,9 @@ jobs:
           Invoke-WebRequest -Uri 'https://github.com/Novum/vkQuake/releases/download/1.37.0/vkQuake-1.37.0_windows_x64.zip' -OutFile vkquake.zip
           Expand-Archive -Path vkquake.zip -DestinationPath vkquake
           Get-ChildItem vkquake -File | Where-Object { $_.Extension -ne '.pdb' } | Copy-Item -Destination package
-          Invoke-WebRequest -Uri 'https://github.com/Novum/vkQuake/archive/refs/tags/1.37.0.zip' -OutFile vkQuake-source-1.37.0.zip
-          Copy-Item vkQuake-source-1.37.0.zip package/
-          Invoke-WebRequest -Uri 'https://github.com/lavenderdotpet/LibreQuake/archive/refs/tags/v0.09-beta.zip' -OutFile LibreQuake-source-v0.09-beta.zip
-          Copy-Item LibreQuake-source-v0.09-beta.zip package/
           Expand-Archive -Path source/assets/librequake/librequake-lite-v0.09-beta.zip -DestinationPath librequake
           Copy-Item librequake/lite/id1 package/id1 -Recurse
+          Copy-Item source/assets/librequake/THIRD-PARTY-SOURCES.txt package/
           & package/DOOMDarkAges.exe --verify-install
           Compress-Archive -Path package/* -DestinationPath DOOMDarkAges-Windows-x64.zip
       - uses: actions/upload-artifact@v4
