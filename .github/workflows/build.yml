@@ -1,31 +1,33 @@
-name: Build Windows Executable
+name: Build C++ Game
 
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
 
 jobs:
-  build:
+  build-windows:
     runs-on: windows-latest
-    
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-    
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.11'
-    
-    - name: Install dependencies
-      run: |
-        pip install pygame numpy pillow pyinstaller
-    
-    - name: Build portable exe
-      run: |
-        pyinstaller main.py --onefile --name DOOMDarkAges --windowed --icon=doom_icon.ico --add-data "levels;levels" --add-data "assets;assets"
-    
-    - name: Upload artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: DOOMDarkAges-Windows-Portable
-        path: dist/DOOMDarkAges.exe
+      - uses: actions/checkout@v4
+      - name: Configure
+        run: cmake -S . -B build -A x64 -DCMAKE_BUILD_TYPE=Release
+      - name: Build
+        run: cmake --build build --config Release --parallel
+      - name: Verify 3D renderer
+        run: build/Release/DOOMDarkAges.exe --render-smoke
+      - name: Package portable game
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force package | Out-Null
+          Copy-Item build/Release/DOOMDarkAges.exe package/
+          $sdlRuntime = Get-ChildItem build -Filter SDL2.dll -Recurse | Select-Object -First 1
+          if (-not $sdlRuntime) { throw 'SDL2.dll was not produced by the build' }
+          Copy-Item $sdlRuntime.FullName package/SDL2.dll
+          Copy-Item build/Release/levels package/levels -Recurse
+          Copy-Item build/Release/assets package/assets -Recurse
+          Compress-Archive -Path package/* -DestinationPath DOOMDarkAges-Windows-x64.zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: DOOMDarkAges-Windows-x64
+          path: DOOMDarkAges-Windows-x64.zip

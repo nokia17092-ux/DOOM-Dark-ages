@@ -1,65 +1,35 @@
-# DOOM Dark Ages by Nokia1709
+# DOOM Dark Ages
 
-A DOOM-style FPS game with raycasting engine, WAD loader (like Chocolate Doom), 25 levels.
+A C++17 first-person game built with SDL2. Its software 3D renderer projects textured world geometry with perspective-correct texture mapping and a per-pixel depth buffer. It loads the repository's 25 JSON maps and indexed Doom-style flat textures.
 
-## Features
+## Play
 
-- **WAD Loader** - Load Freedoom, DOOM 1, DOOM 2 WAD files
-- **25 Built-in Levels** - Castle-themed
-- **Full HUD** - Health, Ammo, Weapons, Minimap
-- **Nokia1709 Branding** - Custom title screen
+- Arrow keys: choose a level in the menu
+- Enter: start or resume
+- WASD: move
+- Mouse: look around
+- Left mouse button: shoot
+- Escape: pause, return to the menu, or quit
+- R: restart after defeat
 
-## Quick Start
+## Build on Linux
 
-### Linux
-```bash
-chmod +x DOOMDarkAges
-./DOOMDarkAges
+Requirements: CMake 3.20+, a C++17 compiler, and network access on the first configure (SDL2 and nlohmann/json are fetched at pinned versions).
+
+```sh
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+cmake --build build --parallel
+./build/DOOMDarkAges
 ```
 
-### Windows
-Use GitHub Actions to build (see below)
+CMake copies the maps and game assets beside the executable.
 
-## Menu
+## Windows x64 build
 
-- **[1]** Freedoom 1 (DOOM)
-- **[2]** Freedoom 2 (DOOM II)
-- **[3]** Built-in Levels
-- **[ESC]** Exit
+Push to `main`, or start the **Build C++ Game** workflow manually in GitHub Actions. It builds on a Windows x64 runner and publishes `DOOMDarkAges-Windows-x64.zip` with the executable, SDL2 runtime, maps, and assets. This avoids requiring a Windows cross-compiler in the Linux development container.
 
-## Controls
+The workflow runs `DOOMDarkAges.exe --render-smoke` before packaging to verify the 3D framebuffer, depth buffer, and loaded maps.
 
-- **WASD** - Move
-- **Mouse/Arrows** - Look
-- **Left Click** - Shoot
-- **1-3** - Weapons
-- **ESC** - Pause/Menu
-- **S** - Save Game
+## LibreQuake status
 
-## Build Windows EXE (Portable)
-
-### Option 1: GitHub Actions (Recommended)
-1. Upload this project to GitHub
-2. Go to **Actions** tab
-3. Click **Build Windows Executable**
-4. Wait for build
-5. Download `DOOMDarkAges.exe` from artifacts
-
-### Option 2: Local Build
-```bash
-# On Windows
-pip install pygame numpy pillow pyinstaller
-pyinstaller main.py --onefile --name DOOMDarkAges --windowed --icon=doom_icon.ico --add-data "levels;levels" --add-data "assets;assets"
-```
-
-## Build from Source
-
-```bash
-pip install pygame numpy pillow pyinstaller
-pyinstaller main.py --onefile --name DOOMDarkAges
-```
-
-## Credits
-
-- Assets: Freedoom Project (freedoom1.wad, freedoom2.wad)
-- Game by Nokia1709
+LibreQuake is not currently supported by this game. Its Quake PAK/BSP data and QuakeC game logic need a compatible Quake engine; this C++ raycaster currently reads the project's JSON maps and extracted Doom-style textures. The current build is a playable C++ foundation, not a LibreQuake port.
