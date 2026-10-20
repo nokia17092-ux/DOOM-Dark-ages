@@ -43,9 +43,7 @@ jobs:
         run: |
           New-Item -ItemType Directory -Force package | Out-Null
           Copy-Item source/build/Release/DOOMDarkAges.exe package/
-          $sdlRuntime = Get-ChildItem source/build -Filter SDL2.dll -Recurse | Select-Object -First 1
-          if (-not $sdlRuntime) { throw 'SDL2.dll was not produced by the build' }
-          Copy-Item $sdlRuntime.FullName package/SDL2.dll
+          Copy-Item source/build/Release/SDL2.dll package/
           Copy-Item source/build/Release/levels package/levels -Recurse
           Copy-Item source/build/Release/assets package/assets -Recurse
           Compress-Archive -Path package/* -DestinationPath DOOMDarkAges-Windows-x64.zip

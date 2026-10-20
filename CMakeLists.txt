@@ -39,3 +39,10 @@ add_custom_command(TARGET DOOMDarkAges POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
         "${CMAKE_SOURCE_DIR}/assets/extracted" "$<TARGET_FILE_DIR:DOOMDarkAges>/assets/extracted"
 )
+
+if(WIN32)
+    add_custom_command(TARGET DOOMDarkAges POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            "$<TARGET_FILE:SDL2>" "$<TARGET_FILE_DIR:DOOMDarkAges>"
+    )
+endif()
